@@ -1,53 +1,54 @@
 
 
-// let options = {
-//     name: 'Yura',
-//     width: 1024,
-//     height: 1024,
-//     colors: {
-//         bg: 'red',
-//         border: 'black'
-//     }
-// }
-//
-// for (let key in options) {
-//     if(options[key] === 'object') {
-//         for (let i in options[key]) {
-//             console.log(`${i} внутреннее свойство, внутреннее значение ${options[key][i]}`);
-//         }
-//     }else {
-//         console.log(`${key} это свойство, а это значение ${options[key]} `)
-//     }
-//
-// }
+let options = {
+    name: 'Yura',
+    width: 1024,
+    height: 1024,
+    colors: {
+        bg: 'red',
+        border: 'black'
+    }
+}
 
-// function first (text, second) {
-//     console.log(`${text} Hello`);
-//     second()
-//
-// }
-// function second () {
-//     console.log('Yura')
-// }
-// first('O,',second);
+for (let key in options) {
+    if(options[key] === 'object') {
+        for (let i in options[key]) {
+            console.log(`${i} внутреннее свойство, внутреннее значение ${options[key][i]}`);
+        }
+    }else {
+        console.log(`${key} это свойство, а это значение ${options[key]} `)
+    }
+
+}
+
+function first (text, second) {
+    console.log(`${text} Hello`);
+    second()
+
+}
+function second () {
+    console.log('Yura')
+}
+first('O,',second);
 
 
-let numberOfFilms;
 let personalMovieDB = {
-    count: numberOfFilms,
+    count: 0,
     status: null,
     movies: {},
     actors: {},
     genres: [],
     privat: false,
     start: function () {
-        numberOfFilms = +prompt('Сколько фильмов вы посмотрели?', '');
-        while(numberOfFilms == "" || numberOfFilms == null || isNaN(numberOfFilms) ){
-            numberOfFilms = +prompt('Сколько фильмов вы посмотрели?', '');
+        console.log(personalMovieDB.count )
+        personalMovieDB.count = +prompt('Сколько фильмов вы посмотрели?', '');
+        console.log(personalMovieDB.count )
+        while(personalMovieDB.count == "" || personalMovieDB.count == null || isNaN(personalMovieDB.count) ){
+            personalMovieDB.count = +prompt('Сколько фильмов вы посмотрели?', '');
         }
     },
     rememberMyFilms: function  () {
-        for ( let i = 0; i < numberOfFilms; i++) {
+        for ( let i = 0; i < personalMovieDB.count; i++) {
             let firstQuestion = prompt('Какой фильм вы посмотрели?', '');
             let secondQuestion = prompt('На сколько вы его оцените?', '');
             if((firstQuestion === null || secondQuestion === null) || (firstQuestion === "" || secondQuestion === "") || firstQuestion.length > 20) {
@@ -58,10 +59,10 @@ let personalMovieDB = {
         }
     },
     confirmLevel: function  () {
-        if(numberOfFilms <= 3) {
+        if(personalMovieDB.count  <= 3) {
             personalMovieDB.status = 'beginer'
         }
-        else if (numberOfFilms >= 4 && numberOfFilms <= 7 ){
+        else if (personalMovieDB.count  >= 4 && personalMovieDB.count  <= 7 ){
             personalMovieDB.status = 'middle'
         }
         else {
@@ -72,11 +73,15 @@ let personalMovieDB = {
         for (let i = 1; i <= 3; i++){
             let ganresQuestion = prompt(`Ваш любимый жанр номер - ${i}`);
             if( ganresQuestion == "" || ganresQuestion == null ) {
-            i--
+                i--;
             }else {
                 personalMovieDB.genres[i - 1] = ganresQuestion;
             }
-        }
+        };
+        personalMovieDB.genres.forEach(function(item, index, array){
+            console.log(`Любимый жанр № ${index + 1} - ${item}`)
+        });
+
     },
     showMyBd: function  (hidden) {
         if(!hidden) {
@@ -103,6 +108,7 @@ personalMovieDB.confirmLevel();
 personalMovieDB.writeYourGenres();
 personalMovieDB.showMyBd(personalMovieDB.privat);
 personalMovieDB.toggleVisibleMyDB();
+
 console.log(personalMovieDB.privat)
 
 
